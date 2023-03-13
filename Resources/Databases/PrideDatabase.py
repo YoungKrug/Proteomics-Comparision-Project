@@ -4,23 +4,28 @@ import os
 import logging
 import urllib
 import urllib.request
+from Resources.ResourceDownloader import ResourceDownloader
 class PrideDatabase:
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
-    def __init__(self, search_element):
+    def __init__(self, search_element, output_folder):
         self.search_element = search_element
         self.accession_data = []
-    def DownloadResources(self, output_folder, project_accession):
-        if not (os.path.isdir(output_folder)):
-            os.mkdir(output_folder)
+        self.output_folder = output_folder
+    def DownloadResources(self):
+        if not (os.path.isdir(self.output_folder)):
+            os.mkdir(self.output_folder)
         print(os.path)
-        request_url = self.api_base_url + "files/byProject?accession=" + project_accession + ",fileCategory.value==RAW"
-        headers = {"Accept": "application/JSON"}
-       # response = self.get_file_from_api(project_accession, file_name)
-        #self.download_files_from_ftp(response, output_folder)
-
-        response = Util.get_api_call(request_url, headers)
-        print(response.json())
-        self.download_files_from_ftp(response.json(), output_folder)
+        self.SearchDatabase()
+        for accession_number in self.accession_data:
+            print(f"Downloading data for {accession_number}")
+            request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"
+            headers = {"Accept": "application/JSON"}
+           # response = self.get_file_from_api(project_accession, file_name)
+            #self.download_files_from_ftp(response, output_folder)
+            response = Util.get_api_call(request_url, headers)
+            print(response.json())
+            self.download_files_from_ftp(response.json(), self.output_folder)
+            break
     def SearchDatabase(self):
         project = Project()
         # Staphylococcus aureus is our prokaryote
@@ -57,6 +62,7 @@ class PrideDatabase:
             new_file_path = file['accession'] + "-" + public_filepath_part[1]
             urllib.request.urlretrieve(ftp_filepath, output_folder + new_file_path)
 
-prideDB = PrideDatabase("meningitis")
-prideDB.SearchDatabase()
-prideDB.DownloadResources("C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources/",project_accession=prideDB.accession_data[0])
+prideDB = PrideDatabase("meningitis",
+                        output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources/")
+resourceDownloader = ResourceDownloader(prideDB)
+resourceDownloader.DownloadResources()
