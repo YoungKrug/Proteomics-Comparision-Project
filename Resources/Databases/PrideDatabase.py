@@ -62,7 +62,9 @@ class PrideDatabase:
             new_file_path = file['accession'] + "-" + public_filepath_part[1]
             urllib.request.urlretrieve(ftp_filepath, output_folder + new_file_path)
 
-prideDB = PrideDatabase("meningitis",
-                        output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources/")
-resourceDownloader = ResourceDownloader(prideDB)
-resourceDownloader.DownloadResources()
+
+#Example Code
+#prideDB = PrideDatabase("meningitis",
+ #                       output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources/")
+#resourceDownloader = ResourceDownloader(prideDB)
+#resourceDownloader.DownloadResources()
