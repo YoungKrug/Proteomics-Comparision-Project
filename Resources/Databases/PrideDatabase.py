@@ -60,11 +60,11 @@ class PrideDatabase:
             public_filepath_part = ftp_filepath.rsplit('/', 1)
             logging.debug(file['accession'] + " -> " + public_filepath_part[1])
             new_file_path = file['accession'] + "-" + public_filepath_part[1]
-            urllib.request.urlretrieve(ftp_filepath, output_folder + new_file_path)
+            urllib.request.urlretrieve(ftp_filepath, f"{output_folder}/{new_file_path}")
 
 
 #Example Code
 #prideDB = PrideDatabase("meningitis",
- #                       output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources/")
+ #                       output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources")
 #resourceDownloader = ResourceDownloader(prideDB)
 #resourceDownloader.DownloadResources()
