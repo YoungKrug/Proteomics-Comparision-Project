@@ -7,15 +7,17 @@ import urllib.request
 from Resources.ResourceDownloader import ResourceDownloader
 class PrideDatabase:
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
-    def __init__(self, search_element, output_folder):
+    def __init__(self, search_element, output_folder, amount_to_download=1):
         self.search_element = search_element
         self.accession_data = []
         self.output_folder = output_folder
+        self.amount_to_download = amount_to_download
     def DownloadResources(self):
         if not (os.path.isdir(self.output_folder)):
             os.mkdir(self.output_folder)
         print(os.path)
         self.SearchDatabase()
+        counter = 0
         for accession_number in self.accession_data:
             print(f"Downloading data for {accession_number}")
             request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"
@@ -25,7 +27,9 @@ class PrideDatabase:
             response = Util.get_api_call(request_url, headers)
             print(response.json())
             self.download_files_from_ftp(response.json(), self.output_folder)
-            break
+            counter = counter + 1
+            if(self.amount_to_download > 0 and self.amount_to_download >= counter):
+                break
     def SearchDatabase(self):
         project = Project()
         # Staphylococcus aureus is our prokaryote
@@ -61,10 +65,3 @@ class PrideDatabase:
             logging.debug(file['accession'] + " -> " + public_filepath_part[1])
             new_file_path = file['accession'] + "-" + public_filepath_part[1]
             urllib.request.urlretrieve(ftp_filepath, f"{output_folder}/{new_file_path}")
-
-
-#Example Code
-#prideDB = PrideDatabase("meningitis",
- #                       output_folder="C:/Users/gregj/Documents/ProteomicsGroupProj/Proteomics-Comparision-Project/PrideResources")
-#resourceDownloader = ResourceDownloader(prideDB)
-#resourceDownloader.DownloadResources()
