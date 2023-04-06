@@ -12,6 +12,7 @@ class RawConverter:
         my_env["PATH"] = "C:/Users/gregj/AppData/Local/Apps/ProteoWizard 3.0.23072.5333f49 64-bit;"
         index = 0
         for files in self.rawfile:
+            filename = filename.split(" ", 1)[0]
             filename = f"{filename}_{index}"
             commandline = f"MSConvert {files} -o{output_file} --outfile {filename}"
             print(f"Running command...\n{commandline}")
