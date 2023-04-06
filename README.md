@@ -10,3 +10,5 @@
 * Remove the *XRawfile2_x64.dll* install with 3.1SP2 and replace it with the one you backed up
 * Finally install pymsfilereader, pip install pymsfilereader.
 #### The package should work now. Additionally, the pymsfilereader should be including inside of the environment.yml but you still must install the MSReader bindings. 
+
+
