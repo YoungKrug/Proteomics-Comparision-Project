@@ -1,6 +1,6 @@
 from pymsfilereader import MSFileReader
 import subprocess,os
-class RawConverter:
+class RawToMZMLConverter:
     rawfile = []
     def __init__(self, rawfile):
         if isinstance(rawfile, list):
@@ -9,7 +9,10 @@ class RawConverter:
             self.rawfile.append(rawfile)
     def ConvertToMZML(self, output_file, filename):
         my_env = os.environ.copy()
-        my_env["PATH"] = "C:/Users/gregj/AppData/Local/Apps/ProteoWizard 3.0.23072.5333f49 64-bit;"
+        path = input("Enter the path to your proteowizard install...")
+        while(not os.path.exists(path)):
+            path = input("Path does not exist, please re-enter it")
+        my_env["PATH"] = f"{path};"
         index = 0
         for files in self.rawfile:
             filename = filename.split(" ", 1)[0]

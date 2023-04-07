@@ -1,1 +1,4 @@
 MSConvert <filename> -o <output>
+
+ursgal-install-resources
+uc.download_resources()

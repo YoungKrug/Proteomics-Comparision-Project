@@ -5,7 +5,7 @@ import logging
 import urllib
 import urllib.request
 from Resources.ResourceDownloader import ResourceDownloader
-from RawFIleConverter.RawConverter import RawConverter
+from RawFIleConverter.RawToMZMLConverter import RawToMZMLConverter
 class PrideDatabase:
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
     downloaded_file_paths = []
@@ -45,10 +45,8 @@ class PrideDatabase:
         for val in results["_embedded"]["compactprojects"]:
             self.accession_data.append(val["accession"])
             print(val["accession"])
-    def ImportResources(self):
-        pass
     def ConvertToMZML(self):
-        mzmlConvert = RawConverter(self.downloaded_file_paths)
+        mzmlConvert = RawToMZMLConverter(self.downloaded_file_paths)
         mzmlConvert.ConvertToMZML(self.output_folder, self.search_element)
     def download_files_from_ftp(self, file_list_json, output_folder):
         """
