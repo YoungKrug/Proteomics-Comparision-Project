@@ -1,5 +1,6 @@
-from pymsfilereader import MSFileReader
-import subprocess,os
+import ursgal
+import glob
+import os
 class RawToMZMLConverter:
     rawfile = []
     def __init__(self, rawfile):
@@ -8,16 +9,20 @@ class RawToMZMLConverter:
         else:
             self.rawfile.append(rawfile)
     def ConvertToMZML(self, output_file, filename):
-        my_env = os.environ.copy()
-        path = input("Enter the path to your proteowizard install...")
-        while(not os.path.exists(path)):
-            path = input("Path does not exist, please re-enter it")
-        my_env["PATH"] = f"{path};"
+        R = ursgal.UController()
+
+        # Check if single file or folder.
+        # Collect raw files if folder is given
+        input_file_list = self.rawfile
+        # Convert raw file(s)
         index = 0
-        for files in self.rawfile:
-            filename = filename.split(" ", 1)[0]
-            filename = f"{filename}_{index}"
-            commandline = f"MSConvert {files} -o{output_file} --outfile {filename}"
-            print(f"Running command...\n{commandline}")
-            subprocess.run(commandline, shell=True, stdout=True, stderr=True, env=my_env)
-            index = index + 1
+        current_folder = ""
+        for raw_file in input_file_list:
+            mzml_file = R.convert(
+                input_file=raw_file,
+                engine="thermo_raw_file_parser_1_1_2",
+                output_file_name=f"{filename}_{index}"
+            )
+            index += 1
+            current_folder = os.path.dirname(mzml_file)
+        return current_folder

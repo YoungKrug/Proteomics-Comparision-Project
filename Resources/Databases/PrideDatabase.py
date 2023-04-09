@@ -24,11 +24,10 @@ class PrideDatabase:
             request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"
             headers = {"Accept": "application/JSON"}
            # response = self.get_file_from_api(project_accession, file_name)
-            #self.download_files_from_ftp(response, output_folder)
+           # self.download_files_from_ftp(response, output_folder)
             response = Util.get_api_call(request_url, headers)
             print(response.json())
             self.download_files_from_ftp(response.json(), self.output_folder)
-        self.ConvertToMZML()
 
     def SearchDatabase(self):
         project = Project()
@@ -45,9 +44,10 @@ class PrideDatabase:
         for val in results["_embedded"]["compactprojects"]:
             self.accession_data.append(val["accession"])
             print(val["accession"])
-    def ConvertToMZML(self):
+    def ConvertToDataReadableFiles(self):
         mzmlConvert = RawToMZMLConverter(self.downloaded_file_paths)
-        mzmlConvert.ConvertToMZML(self.output_folder, self.search_element)
+        return mzmlConvert.ConvertToMZML(self.output_folder, self.search_element)
+
     def download_files_from_ftp(self, file_list_json, output_folder):
         """
         Download files using ftp transfer url
