@@ -26,15 +26,15 @@ class Searcher:
         mzML_files = []
         for mzml in glob.glob(os.path.join("{0}".format(folder), "*.mzML")):
             mzML_files.append(mzml)
-
+        print(mzML_files)
         mass_spectrometer = profile
 
         # We specify all search engines and validation engines that we want to use in a list
         # (version numbers might differ on windows or mac):
         search_engines = [
             # "omssa",
-            "xtandem_vengeance",
-            "msgfplus_v2019_07_03",
+            # "xtandem_vengeance",
+            #"msgfplus_v2019_07_03",
             # 'msamanda_1_0_0_6300',
             "myrimatch_2_2_140"
         ]

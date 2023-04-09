@@ -51,9 +51,9 @@ class SanitizeCSV:
                 "max_num_psms_per_spec": 1,
                 # 'preferred_engines': [],
                 "preferred_engines": [
-                    "msfragger_2_3",
-                    "pipi_1_4_6",
-                    "moda_v1_61",
+                    "msgfplus_v2018_09_12",
+                    "myrimatch_2_2_140"
+                    # "moda_v1_61",
                 ],
                 "remove_redundant_psms": False,
             }

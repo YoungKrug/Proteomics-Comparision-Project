@@ -46,7 +46,7 @@ class PrideDatabase:
             print(val["accession"])
     def ConvertToDataReadableFiles(self):
         mzmlConvert = RawToMZMLConverter(self.downloaded_file_paths)
-        return mzmlConvert.ConvertToMZML(self.output_folder, self.search_element)
+        return mzmlConvert.ConvertToMZML(self.search_element)
 
     def download_files_from_ftp(self, file_list_json, output_folder):
         """
