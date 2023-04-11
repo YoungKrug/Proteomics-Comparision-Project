@@ -5,7 +5,6 @@ import os
 import glob
 
 class Quantification:
-    @staticmethod
     def AbsoluteQuantification(self, mzml_folder, merged_result):
         params = {
             "isotopic_distribution_tolerance": 5,

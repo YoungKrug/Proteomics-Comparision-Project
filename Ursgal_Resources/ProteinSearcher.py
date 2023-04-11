@@ -33,16 +33,14 @@ class Searcher:
         # (version numbers might differ on windows or mac):
         search_engines = [
             # "omssa",
-            # "xtandem_vengeance",
-            #"msgfplus_v2019_07_03",
-            # 'msamanda_1_0_0_6300',
-            "myrimatch_2_2_140"
+             #"msfragger_2_3",
+              "msgfplus_v2019_07_03",
+             #'pipi_1_4_6',
+             #myrimatch_2_2_140"
         ]
 
         validation_engines = [
-            "percolator_3_4_0",
-            "percolator_3_4_0",
-            "percolator_3_4_0"
+            "add_estimated_fdr_1_0_0"
         ]
 
         # Modifications that should be included in the search
@@ -67,7 +65,7 @@ class Searcher:
             "modifications": all_mods,
             "csv_filter_rules": [
                 ["Is decoy", "equals", "false"],
-                ["PEP", "lte", 0.01],
+                # ["PEP", "lte", 0.01],
             ],
         }
 

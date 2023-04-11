@@ -5,7 +5,7 @@ import os
 class SanitizeCSV:
     def __init__(self):
         pass
-    def Sanitize(infile=None):
+    def Sanitize(self,infile=None):
         """
         Sanitize an Ursgal result file after combining results
         from multiple search engines (or single search engine results,
@@ -35,7 +35,7 @@ class SanitizeCSV:
         uc.params.update(
             {
                 "validation_score_field": "Bayes PEP",
-                # 'validation_score_field': 'PEP',
+                #'validation_score_field': 'PEP',
                 "bigger_scores_better": False,
                 "num_compared_psms": 25,
                 "accept_conflicting_psms": False,
@@ -51,8 +51,8 @@ class SanitizeCSV:
                 "max_num_psms_per_spec": 1,
                 # 'preferred_engines': [],
                 "preferred_engines": [
-                    "msgfplus_v2018_09_12",
-                    "myrimatch_2_2_140"
+                    "msgfplus_v2019_07_03",
+                    # "myrimatch_2_2_140"
                     # "moda_v1_61",
                 ],
                 "remove_redundant_psms": False,

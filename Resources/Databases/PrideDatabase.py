@@ -19,6 +19,7 @@ class PrideDatabase:
             os.mkdir(self.output_folder)
         print(os.path)
         self.SearchDatabase()
+        counter = 0
         for accession_number in self.accession_data:
             print(f"Downloading data for {accession_number}")
             request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"
@@ -26,8 +27,13 @@ class PrideDatabase:
            # response = self.get_file_from_api(project_accession, file_name)
            # self.download_files_from_ftp(response, output_folder)
             response = Util.get_api_call(request_url, headers)
-            print(response.json())
-            self.download_files_from_ftp(response.json(), self.output_folder)
+            # print(response.json())
+            bacteriaName = self.search_element.replace(" ", "_")
+            bacteriaName = f"{bacteriaName}_{counter}.raw"
+            self.download_files_from_ftp(response.json(), self.output_folder, number=counter,
+                                         bacteria_file=bacteriaName)
+            counter += 1
+
 
     def SearchDatabase(self):
         project = Project()
@@ -48,12 +54,17 @@ class PrideDatabase:
         mzmlConvert = RawToMZMLConverter(self.downloaded_file_paths)
         return mzmlConvert.ConvertToMZML(self.search_element)
 
-    def download_files_from_ftp(self, file_list_json, output_folder):
+    def download_files_from_ftp(self, file_list_json, output_folder, number, bacteria_file):
         """
         Download files using ftp transfer url
         :param file_list_json: file list in json format
         :param output_folder: folder to download the files
         """
+        filepath = f"{output_folder}/{bacteria_file}"
+        if(os.path.isfile(filepath)):
+            print(f"{filepath} already exist, continuing...")
+            self.downloaded_file_paths.append(filepath)
+            return
         print("Downloading")
         file = file_list_json[0]
         if file['publicFileLocations'][0]['name'] == 'FTP Protocol':
@@ -65,6 +76,6 @@ class PrideDatabase:
         public_filepath_part = ftp_filepath.rsplit('/', 1)
         logging.debug(file['accession'] + " -> " + public_filepath_part[1])
         new_file_path = file['accession'] + "-" + public_filepath_part[1]
-        filepath = f"{output_folder}/{new_file_path}"
+
         urllib.request.urlretrieve(ftp_filepath, filepath)
         self.downloaded_file_paths.append(filepath)

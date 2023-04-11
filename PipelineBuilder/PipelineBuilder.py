@@ -40,10 +40,13 @@ class PipelineBuilder:
                                                         outputfileName=bacteria_name + "_DecoyDB"))
         # Step 6, Sanitize Data
         print("Sanitizing Data in csv...")
-        SanitizeCSV().Sanitize(protein_search_mzml)
+        sanitize = SanitizeCSV()
+        sanitize.Sanitize(infile=protein_search_mzml)
         # Step 7, Quantify Data
         print("Quantification of data...")
-        Quantification.AbsoluteQuantification(mzml_folder=mzmlFiles_Dir, merged_result=protein_search_mzml)
+        absQuant = Quantification()
+        absQuant.AbsoluteQuantification(mzml_folder=mzmlFiles_Dir, merged_result=protein_search_mzml)
+        print("Done!!!")
     def Build(self):
         self.RunPipeline()
     def OutputDirectoryAt(self, directory=""):
