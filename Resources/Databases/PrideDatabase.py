@@ -5,17 +5,21 @@ import logging
 import urllib
 import urllib.request
 from Resources.ResourceDownloader import ResourceDownloader
+from RawFIleConverter.RawToMZMLConverter import RawToMZMLConverter
 class PrideDatabase:
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
+    downloaded_file_paths = []
     def __init__(self, search_element, output_folder, amount_to_download=1):
         self.search_element = search_element
         self.accession_data = []
         self.output_folder = output_folder
         self.amount_to_download = amount_to_download
     def DownloadResources(self):
-        if not (os.path.isdir(self.output_folder)):
-            os.mkdir(self.output_folder)
-        print(os.path)
+        new_directory = self.search_element[:5]
+        new_path = os.path.join(self.output_folder, new_directory)
+        if (not os.path.exists(new_path)):
+            os.mkdir(new_path)
+        self.output_folder = new_path
         self.SearchDatabase()
         counter = 0
         for accession_number in self.accession_data:
@@ -23,13 +27,16 @@ class PrideDatabase:
             request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"
             headers = {"Accept": "application/JSON"}
            # response = self.get_file_from_api(project_accession, file_name)
-            #self.download_files_from_ftp(response, output_folder)
+           # self.download_files_from_ftp(response, output_folder)
             response = Util.get_api_call(request_url, headers)
-            print(response.json())
-            self.download_files_from_ftp(response.json(), self.output_folder)
-            counter = counter + 1
-            if(self.amount_to_download > 0 and self.amount_to_download >= counter):
-                break
+            # print(response.json())
+            bacteriaName = self.search_element.replace(" ", "_")
+            bacteriaName = f"{bacteriaName}_{counter}.raw"
+            self.download_files_from_ftp(response.json(), self.output_folder, number=counter,
+                                         bacteria_file=bacteriaName)
+            counter += 1
+
+
     def SearchDatabase(self):
         project = Project()
         # Staphylococcus aureus is our prokaryote
@@ -45,23 +52,33 @@ class PrideDatabase:
         for val in results["_embedded"]["compactprojects"]:
             self.accession_data.append(val["accession"])
             print(val["accession"])
-    def ImportResources(self):
-        pass
-    def download_files_from_ftp(self, file_list_json, output_folder):
+    def ConvertToDataReadableFiles(self):
+        mzmlConvert = RawToMZMLConverter()
+        return mzmlConvert.ConvertToMZML(self.output_folder, self.search_element.replace(" ", "_"))
+
+    def download_files_from_ftp(self, file_list_json, output_folder, number, bacteria_file):
         """
         Download files using ftp transfer url
         :param file_list_json: file list in json format
         :param output_folder: folder to download the files
         """
+
+        filepath = f"{output_folder}/{bacteria_file}"
+        if(os.path.isfile(filepath)):
+            print(f"{filepath} already exist, continuing...")
+            self.downloaded_file_paths.append(filepath)
+            return
         print("Downloading")
-        for file in file_list_json:
-            if file['publicFileLocations'][0]['name'] == 'FTP Protocol':
-                ftp_filepath = file['publicFileLocations'][0]['value']
-            else:
-                ftp_filepath = file['publicFileLocations'][1]['value']
-            print(file)
-            logging.debug('ftp_filepath:' + ftp_filepath)
-            public_filepath_part = ftp_filepath.rsplit('/', 1)
-            logging.debug(file['accession'] + " -> " + public_filepath_part[1])
-            new_file_path = file['accession'] + "-" + public_filepath_part[1]
-            urllib.request.urlretrieve(ftp_filepath, f"{output_folder}/{new_file_path}")
+        file = file_list_json[0]
+        if file['publicFileLocations'][0]['name'] == 'FTP Protocol':
+            ftp_filepath = file['publicFileLocations'][0]['value']
+        else:
+            ftp_filepath = file['publicFileLocations'][1]['value']
+        print(file)
+        logging.debug('ftp_filepath:' + ftp_filepath)
+        public_filepath_part = ftp_filepath.rsplit('/', 1)
+        logging.debug(file['accession'] + " -> " + public_filepath_part[1])
+        new_file_path = file['accession'] + "-" + public_filepath_part[1]
+
+        urllib.request.urlretrieve(ftp_filepath, filepath)
+        self.downloaded_file_paths.append(filepath)

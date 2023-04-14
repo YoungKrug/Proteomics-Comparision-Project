@@ -1,0 +1,143 @@
+[
+  {
+    "dir": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta",
+    "file": "salmonella",
+    "file_extention": "",
+    "file_root": "salmonella",
+    "full": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta\\salmonella",
+    "is_compressed": false,
+    "json": "salmonella.u.json",
+    "json_exists": false
+  },
+  {
+    "dir": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta",
+    "file": "Salmonella_enterica_serotype_typhi_DecoyDB.fasta",
+    "file_extention": ".fasta",
+    "file_root": "Salmonella_enterica_serotype_typhi_DecoyDB",
+    "full": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta\\Salmonella_enterica_serotype_typhi_DecoyDB.fasta",
+    "is_compressed": false,
+    "json": "Salmonella_enterica_serotype_typhi_DecoyDB.fasta.u.json",
+    "json_exists": true,
+    "md5": "c2657f45bbd0109a084cfe353449e95e"
+  },
+  {
+    "compomics_version": "compomics_utilities_4_11_5",
+    "compress_raw_search_results_if_possible": true,
+    "convert_aa_in_motif": null,
+    "cpus": 15,
+    "decoy_generation_mode": "reverse_protein",
+    "decoy_tag": "decoy_",
+    "del_from_params_before_json_dump": [
+      "grouped_psms"
+    ],
+    "engines_create_folders": true,
+    "enzyme": "trypsin",
+    "file_root": "salmonella",
+    "force": false,
+    "helper_extension": ".u.json",
+    "input_dir_path": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta",
+    "input_file": "salmonella",
+    "input_is_compressed": false,
+    "json_extension": ".u.json",
+    "msgfplus_mzid_converter_version": null,
+    "mzidentml_converter_version": "mzidentml_lib_1_6_10",
+    "mzml2mgf_converter_version": "mzml2mgf_2_0_0",
+    "output_dir_path": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta",
+    "output_file": "Salmonella_enterica_serotype_typhi_DecoyDB.fasta",
+    "output_file_incl_path": null,
+    "peptide_mapper_converter_version": "upeptide_mapper_1_0_0",
+    "prefix": null,
+    "psm_colnames_to_merge_multiple_values": {},
+    "psm_defining_colnames": [
+      "Spectrum Title",
+      "Sequence",
+      "Modifications",
+      "Mass Difference",
+      "Charge",
+      "Is decoy"
+    ],
+    "psm_merge_delimiter": ";",
+    "raw_ident_csv_suffix": ".csv",
+    "remove_temporary_files": true,
+    "rt_pickle_name": "_ursgal_lookup.pkl",
+    "show_unodes_in_development": false,
+    "translations": {
+      "convert_aa_in_motif": null,
+      "convert_aa_in_motif_key": "convert_aa_in_motif",
+      "decoy_generation_mode": "reverse_protein",
+      "decoy_generation_mode_key": "mode",
+      "decoy_tag": "decoy_",
+      "decoy_tag_key": "decoy_tag",
+      "enzyme": "KR;C;P",
+      "enzyme_key": "enzyme",
+      "output_file_incl_path": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta\\Salmonella_enterica_serotype_typhi_DecoyDB.fasta",
+      "output_file_incl_path_key": "output_file"
+    },
+    "unify_csv_converter_version": "unify_csv_1_0_0",
+    "ursgal_resource_url": "https://www.sas.upenn.edu/~sschulze/ursgal_resources/",
+    "validated_ident_csv_suffix": "validated.csv",
+    "validation_score_field": null,
+    "xtandem_converter_version": "xtandem2csv_1_0_0"
+  },
+  {
+    "history": [
+      {
+        "META_INFO": {
+          "citation": "",
+          "distributable": true,
+          "edit_version": 1.0,
+          "engine": {
+            "platform_independent": {
+              "arc_independent": {
+                "exe": "generate_target_decoy_1_0_0.py"
+              }
+            }
+          },
+          "engine_type": {
+            "misc_engine": true
+          },
+          "in_development": false,
+          "include_in_git": true,
+          "input_extensions": [],
+          "name": "Generate Target Decoy",
+          "output_extensions": [
+            ".fasta"
+          ],
+          "output_suffix": "target_decoy",
+          "release_date": null,
+          "utranslation_style": "generate_target_decoy_style_1",
+          "version": "1.0.0"
+        },
+        "engine": "generate_target_decoy_1_0_0",
+        "finfo": {
+          "dir": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta",
+          "file": "salmonella",
+          "file_extention": "",
+          "file_root": "salmonella",
+          "full": "D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta\\salmonella",
+          "is_compressed": false,
+          "json": "salmonella.u.json",
+          "json_exists": false
+        },
+        "history_addon": {},
+        "status": "complete",
+        "ursgal_version": "0.6.8"
+      }
+    ],
+    "run_status": "scheduled",
+    "time_points": {
+      "generate_target_decoy_1_0_0@D:\\ProteomeClassAssignments\\Proteomics-Comparision-Project\\PrideResources\\Fasta\\salmonella": {
+        "start": 1681003382.1865993,
+        "stop": 1681003384.4437573
+      },
+      "postflight": {
+        "start": 1681003384.4437573,
+        "stop": 1681003384.4437573
+      },
+      "preflight": {
+        "start": 1681003382.1865993,
+        "stop": 1681003382.1865993
+      }
+    }
+  }
+]
