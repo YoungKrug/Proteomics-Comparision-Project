@@ -4,11 +4,10 @@
 ##### To install the conda with all the required files, run this command -> 
 ##### conda env create -f environment.yml 
 ##### This will create the environment and import dependencies, after this you should be able to run the project
-### To install MSConvert: 
-* Go to this webpage [MSConvert](https://proteowizard.sourceforge.io/download.html) 
-* Make sure the settings are correlated to your system and download Proteowizard
-* Make sure to save proteowizards path, as that is where your MSConvert.exe is.
-#### To use our program, it will require you to know what bacteria you are looking for, a reference protein (fasta file), and the path to MSConvert.
+### To install Engine Packages
+* Ursgal has a function named download_resources (ex... uc.download_resources(["YOUR RESOURCES TO DOWNLOAD"]))
+* Use this to download engines such as thermal raw parser and percolator
+#### To use our program, it will require you to know what bacteria you are looking for, and a reference protein (fasta file)
 #### All of your results will be outputted in the user specified output folder.
-
+#### During the second run, you can add other mzml files or raw files to the specified folders for more information!
 
