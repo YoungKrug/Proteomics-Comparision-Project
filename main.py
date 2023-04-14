@@ -1,7 +1,7 @@
 from PipelineBuilder.PipelineBuilder import PipelineBuilder
 import os
 
-outputDir = "PrideResources/ConvertedData"
+outputDir = "PrideResources/RawFiles"
 fastaDir = "PrideResources/Fasta/salmonella"
 pipeline = PipelineBuilder()
 pipeline.OutputDirectoryAt(directory=outputDir).\

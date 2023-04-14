@@ -15,9 +15,11 @@ class PrideDatabase:
         self.output_folder = output_folder
         self.amount_to_download = amount_to_download
     def DownloadResources(self):
-        if not (os.path.isdir(self.output_folder)):
-            os.mkdir(self.output_folder)
-        print(os.path)
+        new_directory = self.search_element[:5]
+        new_path = os.path.join(self.output_folder, new_directory)
+        if (not os.path.exists(new_path)):
+            os.mkdir(new_path)
+        self.output_folder = new_path
         self.SearchDatabase()
         counter = 0
         for accession_number in self.accession_data:
@@ -51,8 +53,8 @@ class PrideDatabase:
             self.accession_data.append(val["accession"])
             print(val["accession"])
     def ConvertToDataReadableFiles(self):
-        mzmlConvert = RawToMZMLConverter(self.downloaded_file_paths)
-        return mzmlConvert.ConvertToMZML(self.search_element)
+        mzmlConvert = RawToMZMLConverter()
+        return mzmlConvert.ConvertToMZML(self.output_folder, self.search_element.replace(" ", "_"))
 
     def download_files_from_ftp(self, file_list_json, output_folder, number, bacteria_file):
         """
@@ -60,6 +62,7 @@ class PrideDatabase:
         :param file_list_json: file list in json format
         :param output_folder: folder to download the files
         """
+
         filepath = f"{output_folder}/{bacteria_file}"
         if(os.path.isfile(filepath)):
             print(f"{filepath} already exist, continuing...")

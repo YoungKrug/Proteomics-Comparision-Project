@@ -41,11 +41,11 @@ class PipelineBuilder:
         # Step 6, Sanitize Data
         print("Sanitizing Data in csv...")
         sanitize = SanitizeCSV()
-        sanitize.Sanitize(infile=protein_search_mzml)
+        s_protein_search_mzml = sanitize.Sanitize(infile=protein_search_mzml)
         # Step 7, Quantify Data
         print("Quantification of data...")
         absQuant = Quantification()
-        absQuant.AbsoluteQuantification(mzml_folder=mzmlFiles_Dir, merged_result=protein_search_mzml)
+        absQuant.AbsoluteQuantification(mzml_folder=mzmlFiles_Dir, merged_result=s_protein_search_mzml)
         print("Done!!!")
     def Build(self):
         self.RunPipeline()

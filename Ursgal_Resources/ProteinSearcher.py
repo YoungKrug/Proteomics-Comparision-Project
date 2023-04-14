@@ -40,7 +40,7 @@ class Searcher:
         ]
 
         validation_engines = [
-            "add_estimated_fdr_1_0_0"
+            "percolator_3_4_0"
         ]
 
         # Modifications that should be included in the search
@@ -65,7 +65,7 @@ class Searcher:
             "modifications": all_mods,
             "csv_filter_rules": [
                 ["Is decoy", "equals", "false"],
-                # ["PEP", "lte", 0.01],
+                 ["PEP", "lte", 0.01],
             ],
         }
 

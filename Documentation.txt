@@ -1,4 +1,4 @@
 MSConvert <filename> -o <output>
 
 ursgal-install-resources
-uc.download_resources()
+uc.download_resources("percolator_3_4_0")

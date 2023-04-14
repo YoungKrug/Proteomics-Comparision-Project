@@ -34,8 +34,8 @@ class SanitizeCSV:
         # using the parameters 'score_diff_threshold' and 'threshold_is_log10'
         uc.params.update(
             {
-                "validation_score_field": "Bayes PEP",
-                #'validation_score_field': 'PEP',
+                #"validation_score_field": "Bayes PEP",
+                'validation_score_field': 'PEP',
                 "bigger_scores_better": False,
                 "num_compared_psms": 25,
                 "accept_conflicting_psms": False,
@@ -63,3 +63,4 @@ class SanitizeCSV:
             input_file=infile,
             engine="sanitize_csv",
         )
+        return sanitized_combined_results
