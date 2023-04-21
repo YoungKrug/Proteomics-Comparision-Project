@@ -9,11 +9,12 @@ from RawFIleConverter.RawToMZMLConverter import RawToMZMLConverter
 class PrideDatabase:
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
     downloaded_file_paths = []
-    def __init__(self, search_element, output_folder, amount_to_download=1):
+    def __init__(self, search_element, output_folder, filterList = [], amount_to_download=1):
         self.search_element = search_element
         self.accession_data = []
         self.output_folder = output_folder
         self.amount_to_download = amount_to_download
+        self.filterList = filterList
     def DownloadResources(self):
         new_directory = self.search_element[:5]
         new_path = os.path.join(self.output_folder, new_directory)
@@ -22,6 +23,9 @@ class PrideDatabase:
         self.output_folder = new_path
         self.SearchDatabase()
         counter = 0
+        if(len(self.filterList) > 0):
+            self.accession_data = self.filterList
+            print(f"Filtering out accession data, new data:\n{self.accession_data}")
         for accession_number in self.accession_data:
             print(f"Downloading data for {accession_number}")
             request_url = self.api_base_url + "files/byProject?accession=" + accession_number + ",fileCategory.value==RAW"

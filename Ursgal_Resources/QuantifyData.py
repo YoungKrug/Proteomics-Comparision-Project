@@ -40,11 +40,17 @@ class Quantification:
         )
         mzml_files = []
         filenames = []
+        key_word = "Exponential"
+        conditions = [key_word]
+        counter_one = 0
         for mzml in glob.glob(os.path.join(mzml_folder, "*.mzML")):
             mzml_files.append(mzml)
             filenames.append(os.path.basename(mzml).split(".")[0])
+            conditions.append(f"{key_word}_{counter_one}")
+            counter_one += 1
         experiment_setup = {}
-        conditions = ["Exponential", "Sample", "Anything"]
+
+
         counter = 0
         for files in filenames:
             experiment = self.CreateExperimentSetup(filename=files, condition=conditions[counter])
@@ -53,30 +59,37 @@ class Quantification:
             self.CreatedExperimentNumber += 1
             counter += 1
 
-        # If you want to define your own experimental setup, you must uncomment this and comment the above block
-        # experiment_setup = {
-        #     "1": {
-        #         "FileName": "Salmonella_enterica_serotype_typhi_0",
-        #         "Condition": "Exponential",
-        #         "Biorep": 1,
-        #         "Fraction": 1,
-        #         "Techrep": 1,
-        #     },
-        #     "2": {
-        #         "FileName": "Salmonella_enterica_serotype_typhi_1",
-        #         "Condition": "Sample",
-        #         "Biorep": 1,
-        #         "Fraction": 1,
-        #         "Techrep": 1,
-        #     },
-        #     "3": {
-        #         "FileName": "Salmonella_enterica_serotype_typhi_2",
-        #         "Condition": "Anything",
-        #         "Biorep": 1,
-        #         "Fraction": 1,
-        #         "Techrep": 1,
-        #     }
-        # }
+       # If you want to define your own experimental setup, you must uncomment this and comment the above block
+       #  experiment_setup = {
+       #      "1": {
+       #          "FileName": "Vibrio_cholerae_0",
+       #          "Condition": "Exponential",
+       #          "Biorep": 1,
+       #          "Fraction": 1,
+       #          "Techrep": 1,
+       #      },
+       #      "2": {
+       #          "FileName": "Vibrio_cholerae_1",
+       #          "Condition": "Sample",
+       #          "Biorep": 1,
+       #          "Fraction": 1,
+       #          "Techrep": 1,
+       #      },
+       #      "3": {
+       #          "FileName": "Vibrio_cholerae_2",
+       #          "Condition": "Anything",
+       #          "Biorep": 1,
+       #          "Fraction": 1,
+       #          "Techrep": 1,
+       #      },
+       #      "4": {
+       #          "FileName": "Vibrio_cholerae_3",
+       #          "Condition": "Anything2",
+       #          "Biorep": 1,
+       #          "Fraction": 1,
+       #          "Techrep": 1,
+       #      }
+       #  }
 
         uc.params["experiment_setup"] = experiment_setup
         uc.params["quantification_evidences"] = merged_result

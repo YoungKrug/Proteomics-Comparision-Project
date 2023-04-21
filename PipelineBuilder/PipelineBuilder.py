@@ -17,7 +17,8 @@ class PipelineBuilder:
         print("Searching Pride Database...")
         prideDB = PrideDatabase(self.pride_search_bacteria,
                                 output_folder=self.output_dir,
-                                amount_to_download=1)
+                                amount_to_download=1,
+                                filterList=self.pride_accession_list)
         # Step 2, Download the raw files from the pride database
         print("Downloading Pride Files...")
         resourceDownloader = ResourceDownloader(prideDB)
@@ -66,4 +67,7 @@ class PipelineBuilder:
             self.pride_search_bacteria = bacteria
         else:
             self.pride_search_bacteria = input("what bacterial would you like to analyze?")
+        return self
+    def WithPrideNumbers(self, pride_accession_list = []):
+        self.pride_accession_list = pride_accession_list
         return self
