@@ -10,6 +10,3 @@
 #### To use our program, it will require you to know what bacteria you are looking for, and a reference protein (fasta file)
 #### All of your results will be outputted in the user specified output folder.
 #### During the second run, you can add other mzml files or raw files to the specified folders for more information!
-
-#### To install engines from ursgal run this command ->
-#### uc.download_resources("percolator_3_4_0"), this will download the percolator engine, but can be used for others!
