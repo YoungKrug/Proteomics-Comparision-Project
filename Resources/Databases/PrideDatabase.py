@@ -7,6 +7,8 @@ import urllib.request
 from Resources.ResourceDownloader import ResourceDownloader
 from RawFIleConverter.RawToMZMLConverter import RawToMZMLConverter
 class PrideDatabase:
+    # This class is used to download pride archive databases. Use by passing a
+    # search element, and output folder. There are option parameters as well
     api_base_url = "https://www.ebi.ac.uk/pride/ws/archive/v2/"
     downloaded_file_paths = []
     def __init__(self, search_element, output_folder, filterList = [], amount_to_download=1):
@@ -16,6 +18,7 @@ class PrideDatabase:
         self.amount_to_download = amount_to_download
         self.filterList = filterList
     def DownloadResources(self):
+        # Gets the data to download the necessary resources
         new_directory = self.search_element[:5]
         new_path = os.path.join(self.output_folder, new_directory)
         if (not os.path.exists(new_path)):
@@ -42,8 +45,8 @@ class PrideDatabase:
 
 
     def SearchDatabase(self):
+        # Searches for data
         project = Project()
-        # Staphylococcus aureus is our prokaryote
         results = project.search_by_keywords_and_filters(
             str(self.search_element),  # search for a specific species
             "filter",  # you can define a filter here, but you don't need to
@@ -57,6 +60,7 @@ class PrideDatabase:
             self.accession_data.append(val["accession"])
             print(val["accession"])
     def ConvertToDataReadableFiles(self):
+        # Used to convert to mzml data, a wrapper function
         mzmlConvert = RawToMZMLConverter()
         return mzmlConvert.ConvertToMZML(self.output_folder, self.search_element.replace(" ", "_"))
 

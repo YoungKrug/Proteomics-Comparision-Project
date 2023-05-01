@@ -5,6 +5,7 @@ from Ursgal_Resources.ProteinSearcher import Searcher
 from Ursgal_Resources.CSVSanitize import SanitizeCSV
 from Ursgal_Resources.QuantifyData import Quantification
 import os
+# The main pipeline builder interface, uses all the ursgal engine pieces to construct a flow
 class PipelineBuilder:
     output_dir = ""
     pride_search_bacteria = ""
@@ -12,7 +13,7 @@ class PipelineBuilder:
     decoyDB_name = ""
     def __init__(self):
         pass
-    def RunPipeline(self):
+    def RunPipeline(self): # The function to start the pipeline
         # Step 1, Search The Pride database
         print("Searching Pride Database...")
         prideDB = PrideDatabase(self.pride_search_bacteria,
@@ -48,26 +49,28 @@ class PipelineBuilder:
         absQuant = Quantification()
         absQuant.AbsoluteQuantification(mzml_folder=mzmlFiles_Dir, merged_result=s_protein_search_mzml)
         print("Done!!!")
-    def Build(self):
+    def Build(self): # Call this function after you declare you variables in order to run the pipeline
         self.RunPipeline()
-    def OutputDirectoryAt(self, directory=""):
+    def OutputDirectoryAt(self, directory=""): # This is where you input your output directory, it returns self so
+        # you can call the other functions to continue the chain.
         if (directory != ""):
             self.output_dir = directory
         else:
             self.output_dir = input("Where would you like your output directory for mzml files to be?\n")
         return self
-    def WithFastaFile(self, directory=""):
+    def WithFastaFile(self, directory=""): # Same thing as above, you can declare where your fastA file is
         if (directory != ""):
             self.fasta_dir = directory
         else:
             self.fasta_dir = input("Please give me the path to your reference fasta file")
         return self
-    def AsBacteria(self, bacteria=""):
+    def AsBacteria(self, bacteria=""): # Like above, but instead for your bacteria
         if(bacteria != ""):
             self.pride_search_bacteria = bacteria
         else:
             self.pride_search_bacteria = input("what bacterial would you like to analyze?")
         return self
-    def WithPrideNumbers(self, pride_accession_list = []):
+    def WithPrideNumbers(self, pride_accession_list = []): # This function allows you to create a list for pride IDs
+        # you want to filter for in the pride archive
         self.pride_accession_list = pride_accession_list
         return self
