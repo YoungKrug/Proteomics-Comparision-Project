@@ -7,6 +7,6 @@ fastaDir = "PrideResources/Fasta/Vibrio_Second/vibrio_B22.fasta"
 pipeline = PipelineBuilder()
 pipeline.OutputDirectoryAt(directory=outputDir).\
     WithFastaFile(directory=fastaDir).\
-    AsBacteria(bacteria="Vibrio cholerae").\
-    WithPrideNumbers(list).\
+    AsBacteria(bacteria="Salmonella enterica serotype typhi").\
+    WithPrideNumbers().\
     Build()
